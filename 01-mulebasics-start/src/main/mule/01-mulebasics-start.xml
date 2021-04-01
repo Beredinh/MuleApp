@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="1dc9f321-b113-4f94-aaf5-1933b6b81f38" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	
+	</http:listener-config>
+	<flow name="01-mulebasics-startFlow" doc:id="6a58c8f5-9fb5-4327-93b1-3c42abca31ff" >
+		<http:listener doc:name="Listener" doc:id="871baad7-788e-4306-9879-6083027b7167" config-ref="HTTP_Listener_config" path="/hello/{city}"/>
+		<set-variable value="#[attributes.uriParams.city]" doc:name="Set Variable" doc:id="70103038-886a-4f77-a189-d8546edd7bbe" variableName="myvars"/>
+		<set-payload value="#['Hello World  ' ++ vars.myvars as String]" doc:name="Set Payload" doc:id="e0126e10-5b5c-4152-b70c-4cdc53f5e482" mimeType="text/plain"/>
+		<logger level="INFO" doc:name="Logger" doc:id="8da8b2cc-e41c-4395-b1ea-c4309baf5a49" message="hello eden "/>
+	</flow>
+</mule>
